@@ -1,0 +1,14 @@
+* { 
+  box-sizing: border-box; 
+  margin: 0; padding: 0; 
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: 
+    linear-gradient(rgba(248, 250, 252, 0.85), rgba(248, 250, 252, 0.85)),
+    url('./assets/logo-yoog-saude.png') no-repeat center;
+  background-size: 250px;
+  background-attachment: fixed;
+  line-height: 1.5;
+}

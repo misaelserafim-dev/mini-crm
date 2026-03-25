@@ -1,0 +1,329 @@
+.dashboard {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-title {
+  color: #1e293b;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.kanban-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 120px;
+}
+
+.column {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.column-header {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid #cbd5e1;
+  padding-bottom: 0.5rem;
+}
+
+.status-section {
+  width: 100%;
+  min-height: 180px;
+}
+
+.card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 7px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #2563eb;
+  min-width: 250px;
+}
+
+.patient-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.appointment-desc {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0.5rem 0;
+}
+
+
+
+.floating-menu {
+  position: fixed;
+  bottom: 2rem;
+  background: #1e293b;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  gap: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-menu {
+  cursor: pointer;
+  border: none;
+  background: #e7e7e72a;
+  color: #f8fafc;
+  font-weight: 400;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  transition: all 0.2s;
+}
+
+button.btn-close-items {
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  width: 38px;
+  height: 48px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: transparent;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #be2323;
+}
+
+.btn-menu:hover {
+  background: #20395e;
+}
+
+.btn-primary {
+  background: #2563eb !important;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8 !important;
+}
+
+.appointments-container {
+  width: 100%;
+}
+
+.patient-data span:nth-child(2) {
+  color: cadetblue;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.grid-list-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+h2.status-title {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card.aguardando { 
+  border-left-color: #94a3b8; 
+}
+.card.em_atendimento { 
+  border-left-color: #eab308; 
+}
+.card.finalizado { 
+  border-left-color: #22c55e; 
+}
+
+.patients-page {
+  position: relative;
+  background: #ffffff;
+  border-radius: 7px;
+  padding: 1rem;
+  margin-bottom: 6rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 583px;
+  max-width: 100%;
+  min-height: 700px;
+  margin-top: 3rem;
+  
+}
+
+.patient-form-header {
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.patient-row {
+  position: relative;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.container-itens {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.patient-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-delete {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  color: #1e293b;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  color: #1e293b;
+  font-size: 0.8rem;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #1e293b;
+  font-size: 0.8rem;
+}
+
+.patient-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-add-patient {
+  background: #1e293b;
+}
+.btn-menu.active {
+  background: #334155;
+}
+
+h3.section-subtitle {
+  margin: 2rem 0;
+  color: #026d9e;
+  text-align: center;
+}
+
+.edit-mode-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btns-actions {
+  cursor: pointer;
+  border: none;
+  background: #e7e7e7;
+  color: #000000;
+  font-weight: 400;
+  font-size: 0.8rem;
+  padding: 7px 14px;
+  border-radius: 25px;
+  transition: all 0.2s;
+}
+
+button.btns-actions.btn-cancel {
+  font-size: 0.9rem;
+  padding: 0.6rem 1.2rem;
+}
+
+button.btns-actions.btn-save {
+  background: #2f972f;
+  color: #fff;
+}
+
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgb(0 0 0 / 24%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+label.label-modal {
+  margin-bottom: 9px;
+  display: block;
+  margin-top: 17px;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.modal-content {
+  position: relative;
+  background: #ffffff;
+  border-radius: 7px;
+  padding: 2rem;
+  margin-bottom: 6rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 583px;
+  max-width: 100%;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
