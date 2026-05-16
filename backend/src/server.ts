@@ -1,12 +1,15 @@
 import Fastify from "fastify";
 import { routes } from "./routes";
 import cors from '@fastify/cors'
+import { appErrorHandler } from './errors/errorHandler';
 
 const port = 3333;
 
 const app = Fastify({
   logger: true 
 });
+
+app.setErrorHandler(appErrorHandler);
 
 app.get("/", async () => {
   return { status: "ok" };

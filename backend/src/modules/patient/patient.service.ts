@@ -1,8 +1,9 @@
 import { prisma } from "../../lib/prisma";
+import { AppError } from "../../errors/AppError";
 
 export async function createPatient(data: { name: string; phone: string }) {
-  if (!data.name?.trim()) throw new Error("Nome é obrigatório");
-  if (!data.phone?.trim()) throw new Error("Telefone é obrigatório");
+  if (!data.name?.trim()) throw new AppError("Nome é obrigatório", 400, "VALIDATION_ERROR", { field: 'name' });
+  if (!data.phone?.trim()) throw new AppError("Telefone é obrigatório", 400, "VALIDATION_ERROR", { field: 'phone' });
 
   return prisma.patient.create({ data });
 }

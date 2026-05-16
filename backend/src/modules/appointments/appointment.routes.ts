@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
-import { createAppointment, listAppointments,getAppointmentById, updateAppointmentStatus, deleteAppointment } from "./appointment.service";
+import { AppError } from "../../errors/AppError";
+import { createAppointment, listAppointments, updateAppointmentStatus, deleteAppointment } from "./appointment.service";
 
 export type AppointmentStatus = "AGUARDANDO" | "EM_ATENDIMENTO" | "FINALIZADO";
 
@@ -12,29 +13,19 @@ export async function appointmentRoutes(app: FastifyInstance) {
     };
 
     if (!description || description.trim() === "") {
-      return reply.status(400).send({
-        message: "Descrição é obrigatória",
-      });
+      throw new AppError("Descrição é obrigatória", 400, "VALIDATION_ERROR", { field: 'description' });
     }
 
     if (!patientId) {
-      return reply.status(400).send({
-        message: "Paciente é obrigatório",
-      });
+      throw new AppError("Paciente é obrigatório", 400, "VALIDATION_ERROR", { field: 'patientId' });
     }
 
-    try {
-      const appointment = await createAppointment({
-        description,
-        patientId,
-      });
+    const appointment = await createAppointment({
+      description,
+      patientId,
+    });
 
-      return reply.status(201).send(appointment);
-    } catch {
-      return reply.status(400).send({
-        message: "Erro ao criar agendamento",
-      });
-    }
+    return reply.status(201).send(appointment);
   });
 
   // lista de consultas
@@ -44,14 +35,8 @@ export async function appointmentRoutes(app: FastifyInstance) {
       status?: AppointmentStatus 
     };
 
-    try {
-      const appointments = await listAppointments(status);
-      return reply.send(appointments);
-    } 
-    catch (error: any) {
-      app.log.error(error);
-      return reply.status(500).send({ message: "Erro ao listar agendamentos" });
-    }
+    const appointments = await listAppointments(status);
+    return reply.send(appointments);
   });
 
   // alterar status
@@ -59,28 +44,13 @@ export async function appointmentRoutes(app: FastifyInstance) {
     const { id } = request.params as { id: string };
     const { status } = request.body as { status: AppointmentStatus };
 
-    try {
-
-      const updated = await updateAppointmentStatus(id, status);
-      return replace.send(updated);
-
-    } catch (error: any) {
-      if (error.message === "Não pode voltar um status") {
-        return replace.status(400).send({ message: error.message });
-      }
-      return replace.status(500).send({ message: "Erro interno" });
-    }
+    const updated = await updateAppointmentStatus(id, status);
+    return replace.send(updated);
   });
   // deletar
   app.delete("/appointments/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
-
-    try {
-        await deleteAppointment(id);
-        return reply.status(204).send();
-    } 
-    catch (error) {
-        return reply.status(404).send({ message: "Agendamento não encontrado" });
-    }
+    await deleteAppointment(id);
+    return reply.status(204).send();
   });
 }
