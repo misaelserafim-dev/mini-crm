@@ -3,6 +3,8 @@ import { appointmentService } from '../domains/appointments/appointmentService';
 
 export function Dashboard() {
     const [appointments, setAppointments] = useState<any[]>([]);
+    const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+    const [loadingAppointmentId, setLoadingAppointmentId] = useState<string | null>(null);
     const statusOptions = ['AGUARDANDO', 'EM_ATENDIMENTO', 'FINALIZADO'];
 
     // busca os agendamentos
@@ -21,11 +23,17 @@ export function Dashboard() {
 
     // altera o status
     const handleStatusChange = async (id: string, newStatus: any) => {
+        setLoadingAppointmentId(id);
+        setStatusMessage(null);
+
         try {
             await appointmentService.alterarStatus(id, newStatus);
+            setStatusMessage({ type: 'success', text: 'Status do agendamento atualizado.' });
             fetchData(); 
         } catch (err) {
-            alert("Não pode voltar um status");
+            setStatusMessage({ type: 'error', text: 'Não foi possível atualizar o status.' });
+        } finally {
+            setLoadingAppointmentId(null);
         }
     };
 
@@ -33,11 +41,17 @@ export function Dashboard() {
     const handleRemoveAppointment = async (id: string) => {
         if (!window.confirm("Tem certeza que deseja remover?")) return;
 
+        setLoadingAppointmentId(id);
+        setStatusMessage(null);
+
         try {
             await appointmentService.deletar(id);
+            setStatusMessage({ type: 'success', text: 'Agendamento removido com sucesso.' });
             fetchData();
         } catch (err) {
-            alert("Erro ao remover o atendimento.");
+            setStatusMessage({ type: 'error', text: 'Erro ao remover o atendimento.' });
+        } finally {
+            setLoadingAppointmentId(null);
         }
     };
 
@@ -59,6 +73,7 @@ export function Dashboard() {
                             
                             <select value={app.status} 
                                 onChange={(e) => handleStatusChange(app.id, e.target.value)}
+                                disabled={loadingAppointmentId === app.id}
                             >
                                 {statusOptions.map(opt => (
                                     <option key={opt} value={opt}>{opt.replace('_', ' ')}</option>
@@ -73,6 +88,12 @@ export function Dashboard() {
 
     return (
         <div className="appointments-container">
+            {statusMessage && (
+                <div className={`message ${statusMessage.type}`}>
+                    <span>{statusMessage.text}</span>
+                    <button type="button" className="message-close" onClick={() => setStatusMessage(null)}>×</button>
+                </div>
+            )}
             {RenderComponentCard('AGUARDANDO')}
             {RenderComponentCard('EM_ATENDIMENTO')}
             {RenderComponentCard('FINALIZADO')}
